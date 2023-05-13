@@ -47,9 +47,28 @@ const material = new THREE.RawShaderMaterial({
   vertexShader,
   fragmentShader,
   transparent: true,
+  uniforms: {
+    uFrequency: { value: new THREE.Vector2(10, 5) },
+    uTime: { value: 0 },
+    uColor: { value: new THREE.Color("orange") },
+  },
 });
 
+gui
+  .add(material.uniforms.uFrequency.value, "x")
+  .min(0)
+  .max(20)
+  .step(0.01)
+  .name("Frequency X");
+gui
+  .add(material.uniforms.uFrequency.value, "y")
+  .min(0)
+  .max(20)
+  .step(0.01)
+  .name("Frequency Y");
+
 const mesh = new THREE.Mesh(geometry, material);
+mesh.scale.y = 2 / 3;
 scene.add(mesh);
 
 const controls = new OrbitControls(camera, canvas);
@@ -72,8 +91,14 @@ window.addEventListener("resize", () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
 
+const clock = new THREE.Clock();
+
 const tick = () => {
   controls.update();
+
+  const elapsedTime = clock.getElapsedTime();
+
+  material.uniforms.uTime.value = elapsedTime;
 
   renderer.render(scene, camera);
 
