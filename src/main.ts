@@ -44,14 +44,13 @@ geometry.setAttribute(
   new THREE.BufferAttribute(randoms, 1)
 );
 
-const material = new THREE.RawShaderMaterial({
+const material = new THREE.ShaderMaterial({
   vertexShader,
   fragmentShader,
   transparent: true,
   uniforms: {
     uFrequency: { value: new THREE.Vector2(10, 5) },
     uTime: { value: 0 },
-    // uColor: { value: new THREE.Color("orange") },
     uTexture: { value: flagFrenchTexture },
   },
 });
