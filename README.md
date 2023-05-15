@@ -1,4 +1,4 @@
-# Threejs Template
+# French flag using shaders
 
 ## Requirements
 
